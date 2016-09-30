@@ -63,6 +63,9 @@
             {{else}}
               <li><a href="/login">Login</a></li>
             {{/if}}
+            {{#if loggedInAsOwner}}
+              <li><a href="/truck/owned/:id">My Trucks</a></li>
+            {{/if}}
           </ul>
 
         </div>
