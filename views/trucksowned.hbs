@@ -1,0 +1,123 @@
+
+  {{#each this}}
+    <main class="myMain">
+
+      <div class='truckProfileInfo'>
+        <div class="truckDescription">
+          <h1 class="truckName">{{truck.0.truck_name}}</h1>
+          <div class='panel panel-danger'>
+            <div class='panel-heading'>
+              <h3 class='panel-title' id="truckName">{{truck.0.genre}}</h3>
+            </div>
+            <div class='panel-body' id="truckDescriptionBody">
+              {{truck.0.description}}
+            </div>
+          </div>
+        </div>
+        <div class="truckPicture">
+          <img class='truckProfilePic' src='{{truck.0.image_url}}'/>
+        </div>
+      </div>
+
+      <div class="directions">
+        <strong>Click day to see where the truck will be</strong>
+      </div>
+
+      <div class="scheduleInfo">
+        <div class='panel panel-default'>
+          <div class='panel-body schedule'>
+            <div class='scheduleDay' onclick='showDay("sunday")'>
+              <span class='scheduleDayName Sunday'>Sunday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.0.location}}</span>
+                <span class='scheduleTime'>{{truck.0.open_time}} - {{truck.0.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("monday")'>
+              <span class='scheduleDayName Monday'>Monday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.1.location}}</span>
+                <span class='scheduleTime'>{{truck.1.open_time}} - {{truck.1.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("tuesday")'>
+              <span class='scheduleDayName Tuesday'>Tuesday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.2.location}}</span>
+                <span class='scheduleTime'>{{truck.2.open_time}} - {{truck.2.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("wednesday")'>
+              <span class='scheduleDayName Wednesday'>Wednesday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.3.location}}</span>
+                <span class='scheduleTime'>{{truck.3.open_time}} - {{truck.3.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("thursday")'>
+              <span class='scheduleDayName Thursday'>Thursday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.4.location}}</span>
+                <span class='scheduleTime'>{{truck.4.open_time}} - {{truck.4.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("friday")'>
+              <span class='scheduleDayName Friday'>Friday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.5.location}}</span>
+                <span class='scheduleTime'>{{truck.5.open_time}} - {{truck.5.close_time}}</span>
+              </div>
+            </div>
+            <div class='scheduleDay' onclick='showDay("saturday")'>
+              <span class='scheduleDayName Saturday'>Saturday</span>
+              <div class="scheduleDayInfo">
+                <span class='scheduleLocation'>{{truck.6.location}}</span>
+                <span class='scheduleTime'>{{truck.6.open_time}} - {{truck.6.close_time}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="jumbotron profileJumboAdjust myJumbo" id="map">
+      </div>
+
+  <!-- User Reviews -->
+      <div class="well">
+        <h4>Write a review?</h4>
+
+        <form action='/review/new' method='POST' class="input-group">
+          <input type='text' name='content' class="form-control input-sm chat-input" placeholder="Write your review here..." />
+          <div class="checkbox">
+            <label>
+              I would eat at {{truck.0.name}} again:
+              <input type="radio" name='is_positive' value='1' checked> Yes!
+              <input type="radio" name='is_positive' value='0'> No
+            </label>
+          </div>
+          <input type='hidden' name='truck_id' value='{{truck.0.id}}'/>
+  	       <span class="input-group-btn">
+             <button type="submit" class="btn btn-primary btn-sm" id='reviewSubmit'><span class="glyphicon glyphicon-comment"></span> Add Review</button>
+           </span>
+         </form>
+
+         <hr data-brackets-id="12673">
+         <ul data-brackets-id="12674" id="sortable" class="list-unstyled ui-sortable">
+           {{#if truck.reviews}}
+           {{#each truck.reviews}}
+           <strong class="pull-left primary-font">{{username}} says:</strong>
+         </br>
+         <small class="pull-right text-muted">
+           <span class="glyphicon glyphicon-time"></span>{{created_at}}</small>
+           <li class="ui-state-default" id="test">"{{content}}"</li>
+         </br>
+            {{/each}}
+            {{else}}
+            <h2>Be the first to review {{truck.0.truck_name}}!</h2>
+            {{/if}}
+          </ul>
+        </div>
+
+      </main>
+      <br>
+    {{/each}}

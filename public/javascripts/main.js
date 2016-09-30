@@ -61,7 +61,7 @@ function geoCodeAddress(address){
 }
 
 function loadTruckInfo(id) {
-  // $.get('https://hipfoodtrucks.herokuapp.com/api/info/'+id)
+   //$.get('https://hipfoodtrucks.herokuapp.com/api/info/'+id)
   $.get('http://localhost:3000/api/info/'+id)
   .then((data) => {
     console.log(data)

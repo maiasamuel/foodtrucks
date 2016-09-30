@@ -86,6 +86,44 @@ router.get('/:id', function(req,res,next) {
   })
 })
 
+
+router.get('/owned/:id', function(req, res, next) {
+  var data={};
+  var id = queries.getAllOwners().where('owner_id', req.params.id);
+  queries.getAllTruckSchedules(id)
+  .then(function(result){
+    data=result;
+    for(var search in data){
+      if(data[search].location==="none"){
+        data[search].location="Closed";
+      }
+      if(data[search].open_time===0){
+        data[search].open_time="";
+      }
+      if(data[search].close_time===0){
+        data[search].close_time="";
+      }
+      else{
+        data[search].open_time=makeTimeNeat(data[search].open_time);
+        data[search].close_time=makeTimeNeat(data[search].close_time);
+      }
+    }
+  })
+  .then(() => {
+    return queries.GetTruckReviews(id)
+  })
+  .then((reviews) => { // Is this correct? Somewhere within this code we need to put in images for our images for every user. Do another query.
+    data.reviews=reviews;
+    console.log(reviews);
+    res.render('trucksowned', {
+      truck: data, //
+      loggedIn: "yes"
+      //user: user[0]
+    });
+  })
+})
+
+
 router.post('/new/signup', function (req, res, next) {
   console.log("Here!")
   var name=req.user;
